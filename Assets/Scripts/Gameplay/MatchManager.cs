@@ -1,11 +1,9 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
+using ToyTanks;
 using Unity.Netcode;
-using Unity.Netcode.Components;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class MatchManager : NetworkBehaviour
     {
@@ -20,17 +18,7 @@ namespace Opus
 
         public SpawnpointHolder spawnpointHolder;
 
-        public EquipmentList weapons;
-        public EquipmentList gadgets;
-
-        public int maxRespawnTime = 10;
-
-        public bool[] lockedSlots = new bool[5];
-
-        [Tooltip("The amount added to the mech readiness every tick. This is synchronised with the players every 10 seconds.")]
-        public float mechReadySpeed;
-        [Tooltip("The amount added to the mech's special readiness every tick. This is synchronised with the players every 10 seconds.")]
-        public float mechSpecialSpeed;
+        public int maxRespawnTime = 3;
         public override void OnNetworkSpawn()
         {
             Instance = this;
@@ -81,97 +69,38 @@ namespace Opus
             }
         }
         [Rpc(SendTo.Server)]
-        public void RequestSpawn_RPC(ulong clientID, int primaryWeaponIndex = -1, int gadgetOneIndex = -1, int gadgetTwoIndex = -1, int gadgetThreeIndex = -1, int specialIndex = -1, bool revived = false, Vector3 position = default)
+        public void RequestSpawn_RPC(ulong clientID, bool firstSpawn)
         {
-            if (PlayerManager.playersByID.TryGetValue(clientID, out PlayerManager p))
-            {
-                if (p.LivingPlayer == null)
-                {
-                    p.LivingPlayer = NetworkManager.SpawnManager.InstantiateAndSpawn(p.playerPrefab, clientID).GetComponent<PlayerEntity>();
-                }
-                p.LivingPlayer.currentHealth.Value = p.LivingPlayer.MaxHealth;
-                p.timeUntilSpawn.Value = maxRespawnTime;
-                if (!revived)
-                {
-                    (Vector3 pos, Quaternion rot) = spawnpointHolder.FindSpawnpoint(p.teamIndex.Value);
+            //if (PlayerManager.playersByID.TryGetValue(clientID, out PlayerManager p))
+            //{
+            //    if (p.LivingPlayer == null)
+            //    {
+            //        p.LivingPlayer = NetworkManager.SpawnManager.InstantiateAndSpawn(p.playerPrefab, clientID).GetComponent<PlayerEntity>();
+            //    }
+            //    p.LivingPlayer.currentHealth.Value = p.LivingPlayer.MaxHealth;
+            //    p.timeUntilSpawn.Value = maxRespawnTime;
+            //    if (!revived)
+            //    {
+            //        (Vector3 pos, Quaternion rot) = spawnpointHolder.FindSpawnpoint(p.teamIndex.Value);
 
-                    SpawnWeaponsForPlayer(clientID, p, primaryWeaponIndex, gadgetOneIndex, gadgetTwoIndex, gadgetThreeIndex, specialIndex);
-                    p.LivingPlayer.Teleport_RPC(pos, Quaternion.identity);
+            //        p.LivingPlayer.Teleport_RPC(pos, Quaternion.identity);
 
-                    p.SpawnPlayer_RPC();
-                }
-                else
-                {
-                    p.LivingPlayer.Teleport_RPC(position, Quaternion.identity);
-                    p.SpawnPlayer_RPC();
-                }
+            //        p.SpawnPlayer_RPC();
+            //    }
+            //    else
+            //    {
+            //        p.LivingPlayer.Teleport_RPC(position, Quaternion.identity);
+            //        p.SpawnPlayer_RPC();
+            //    }
+            //}
+            PlayerManager pm = PlayerManager.PlayerManagers[OwnerClientId];
+            if (firstSpawn)
+            {
+                pm.myTankController = NetworkManager.SpawnManager.InstantiateAndSpawn(pm.tank, clientID, false, false, false).GetComponent<TankController>();
             }
+            pm.myTankController.FindSpawnAndTeleport_RPC();
         }
-        void SpawnWeaponsForPlayer(ulong clientID, PlayerManager p, int primaryWeaponIndex = -1, int gadgetOneIndex = -1, int gadgetTwoIndex = -1, int gadgetThreeIndex = -1, int specialIndex = -1)
-        {
-            if (primaryWeaponIndex > -1 && primaryWeaponIndex < weapons.equipment.Length)
-            {
-                if(p.LivingPlayer != null)
-                {
-                    //p.LivingPlayer.wc.weaponRef.Value = SpawnWeapon(clientID, weapons.equipment[primaryWeaponIndex].equipmentPrefab, Slot.primary);
-                }
-            }
-            else
-            {
-            }
-            if (gadgetThreeIndex > -1 && gadgetThreeIndex < gadgets.equipment.Length)
-            {
-                if (p.LivingPlayer != null)
-                {
-                    //p.LivingPlayer.wc.gadget3Ref.Value = SpawnWeapon(clientID, gadgets.equipment[gadgetThreeIndex].equipmentPrefab, Slot.gadget3);
-                }
-            }
-            else
-            {
-            }
-            if (gadgetOneIndex > -1 && gadgetOneIndex < gadgets.equipment.Length)
-            {
-                if (p.LivingPlayer != null)
-                {
-                    //p.LivingPlayer.wc.gadget1Ref.Value = SpawnWeapon(clientID, gadgets.equipment[gadgetOneIndex].equipmentPrefab, Slot.gadget1);
-                }
-            }
-            else
-            {
-            }
-            if (gadgetTwoIndex > -1 && gadgetTwoIndex < gadgets.equipment.Length)
-            {
-                if (p.LivingPlayer != null)
-                {
-                    //p.LivingPlayer.wc.gadget2Ref.Value = SpawnWeapon(clientID, weapons.equipment[gadgetTwoIndex].equipmentPrefab, Slot.gadget2);
-                }
-            }
-            else
-            {
-            }
-            if (specialIndex > -1 && specialIndex < gadgets.equipment.Length)
-            {
-                if (p.LivingPlayer != null)
-                {
-                    //p.LivingPlayer.wc.specialRef.Value = SpawnWeapon(clientID, gadgets.equipment[specialIndex].equipmentPrefab, Slot.special);
-                }
-            }
-            else
-            {
-            }
-        }
-        BaseEquipment SpawnWeapon(ulong clientID, NetworkObject netPrefab, Slot weaponSlot)
-        {
-            netPrefab = NetworkManager.SpawnManager.InstantiateAndSpawn(netPrefab, clientID, false, false, false, Vector3.zero, Quaternion.identity);
-            if (netPrefab.TryGetComponent(out BaseEquipment be))
-            {
-                return be;
-            }
-            else
-            {
-                return null;
-            }
-        }
+
         void SetPlayerTeam(ulong clientID)
         {
             uint team = FindSmallestTeam();
@@ -185,13 +114,7 @@ namespace Opus
             }
 
             NetworkObject n = NetworkManager.ConnectedClients[clientID].PlayerObject;
-            PlayerManager p = n.GetComponent<PlayerManager>();
-            if (team == 0)
-                p.UpdateTeamIndex(0, 0);
-            else
-                p.teamIndex.Value = team;
-            TeamsChanged(new(), clientsOnTeams.Value);
-
+            TeamsChanged(clientsOnTeams.Value, clientsOnTeams.Value);
         }
         private void ConnectionEvent(NetworkManager manager, ConnectionEventData eventData)
         {
@@ -256,24 +179,6 @@ namespace Opus
             }
             else
                 syncingSpecialTime = false;
-            if(PlayerManager.playersByID.Count > 0)
-            {
-                foreach (KeyValuePair<ulong, PlayerManager> item in PlayerManager.playersByID)
-                {
-                    if (item.Value.specialPercentage_noSync < 1)
-                    {
-                        item.Value.specialPercentage_noSync += (item.Value.mechDeployed.Value ? mechSpecialSpeed : mechReadySpeed) * Time.fixedDeltaTime;
-                    }
-                    if (item.Value.specialPercentage_noSync > 1)
-                    {
-                        item.Value.specialPercentage_noSync = 1;
-                    }
-                    if (syncingSpecialTime)
-                    {
-                        item.Value.specialPercentage.Value = item.Value.specialPercentage_noSync;
-                    }
-                }
-            }
         }
     }
 }

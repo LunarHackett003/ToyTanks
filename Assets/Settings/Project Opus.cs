@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Opus
+namespace ToyTanks
 {
     public partial class @ControlScheme: IInputActionCollection2, IDisposable
     {
@@ -39,9 +39,18 @@ namespace Opus
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""LookMouse"",
                     ""type"": ""Value"",
                     ""id"": ""3239dde7-5abd-4995-bffa-b8e89c24c56d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LookGamepad"",
+                    ""type"": ""Value"",
+                    ""id"": ""3420dbcc-5285-4c11-add2-5dbc7408d43b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -66,31 +75,13 @@ namespace Opus
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Brake"",
                     ""type"": ""Button"",
                     ""id"": ""4aaa9003-a74e-4167-a16a-03b92b10e829"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwitchWeapon"",
-                    ""type"": ""Value"",
-                    ""id"": ""e2ada848-e67a-4732-92af-9a24bbcbf14f"",
-                    ""expectedControlType"": ""Dpad"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""CycleWeapon"",
-                    ""type"": ""Value"",
-                    ""id"": ""bfbd05e9-8815-43c8-a52d-f683f3cf3e72"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""SecondaryInput"",
@@ -105,60 +96,6 @@ namespace Opus
                     ""name"": ""Scoreboard"",
                     ""type"": ""Button"",
                     ""id"": ""6bd73062-6946-4d17-ba1f-685fde25fda6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""f6e02b81-8ddc-498d-bffe-e0c49ff47d84"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PickUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""f1bd7dcd-6506-4329-b408-db43451b6037"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Reload"",
-                    ""type"": ""Button"",
-                    ""id"": ""9d8ab580-0a55-467f-878d-4ca0d9791fdf"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Sprint"",
-                    ""type"": ""Button"",
-                    ""id"": ""2368feb7-2afd-472e-b1d8-d6e2eb7592f9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Crouch"",
-                    ""type"": ""Button"",
-                    ""id"": ""af95eb59-a20e-4145-a225-b7b9fd1c22d9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Special"",
-                    ""type"": ""Button"",
-                    ""id"": ""d2202967-ea62-4a86-b4e7-88f7c7a5ea3f"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -300,34 +237,23 @@ namespace Opus
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=10,y=10)"",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
+                    ""action"": ""LookMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3e5f5442-8668-4b27-a940-df99bad7e831"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
+                    ""id"": ""02346a4f-5702-4ba8-8dc8-5af47649afee"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
+                    ""processors"": ""ScaleVector2(x=10,y=10)"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""LookGamepad"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -415,7 +341,7 @@ namespace Opus
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Jump"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -426,84 +352,7 @@ namespace Opus
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5f2c925d-cf67-4440-b4ff-834187217d6c"",
-                    ""path"": ""<Gamepad>/dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""e1d9ce72-f4ba-4c53-b7e8-aab1260d2de7"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""fdf13250-8b0b-47d4-846c-a6a378093a01"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""228d5910-b49c-4de1-bbf9-ab64e9e89939"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""5e94f2b4-2f90-40f2-a477-be17e68d0ec4"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""8dafce29-0c4b-43f4-b9dc-db0f6830d659"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""25a71852-f31c-43b4-9ac6-7ca1835fbcd9"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""CycleWeapon"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -548,138 +397,6 @@ namespace Opus
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Scoreboard"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f9b81684-4f5e-4df2-9de0-abf42557e51a"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e9592488-fd2c-4501-8377-28e169dd9b84"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""94ecb729-3353-4014-8eec-ba7f868cc9ba"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""PickUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2060ac6e-068e-465e-a572-7febcc9db69d"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""PickUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""199609e3-84c5-48c7-bce7-66a0fedbe02c"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""88603a5e-9685-4f4e-9614-47cf8051e83e"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c19339f3-ffbc-423c-84fd-ad5fd46d1a64"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e3bc68c0-730c-4829-8b42-fe2260a11a5e"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""57dafc4e-7c57-4f5f-8939-ccaf1caa1ffe"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""75123434-c932-4afb-a37e-6e04ae5e86a4"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cb5d7902-a27e-4ea7-abab-d0eb20b6919c"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Special"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dc72a683-404d-48bd-b467-c6ef5257a2aa"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1268,20 +985,13 @@ namespace Opus
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+            m_Player_LookMouse = m_Player.FindAction("LookMouse", throwIfNotFound: true);
+            m_Player_LookGamepad = m_Player.FindAction("LookGamepad", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-            m_Player_SwitchWeapon = m_Player.FindAction("SwitchWeapon", throwIfNotFound: true);
-            m_Player_CycleWeapon = m_Player.FindAction("CycleWeapon", throwIfNotFound: true);
+            m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
             m_Player_SecondaryInput = m_Player.FindAction("SecondaryInput", throwIfNotFound: true);
             m_Player_Scoreboard = m_Player.FindAction("Scoreboard", throwIfNotFound: true);
-            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-            m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
-            m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
-            m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-            m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
-            m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1362,39 +1072,25 @@ namespace Opus
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Look;
+        private readonly InputAction m_Player_LookMouse;
+        private readonly InputAction m_Player_LookGamepad;
         private readonly InputAction m_Player_Fire;
         private readonly InputAction m_Player_Pause;
-        private readonly InputAction m_Player_Jump;
-        private readonly InputAction m_Player_SwitchWeapon;
-        private readonly InputAction m_Player_CycleWeapon;
+        private readonly InputAction m_Player_Brake;
         private readonly InputAction m_Player_SecondaryInput;
         private readonly InputAction m_Player_Scoreboard;
-        private readonly InputAction m_Player_Interact;
-        private readonly InputAction m_Player_PickUp;
-        private readonly InputAction m_Player_Reload;
-        private readonly InputAction m_Player_Sprint;
-        private readonly InputAction m_Player_Crouch;
-        private readonly InputAction m_Player_Special;
         public struct PlayerActions
         {
             private @ControlScheme m_Wrapper;
             public PlayerActions(@ControlScheme wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
-            public InputAction @Look => m_Wrapper.m_Player_Look;
+            public InputAction @LookMouse => m_Wrapper.m_Player_LookMouse;
+            public InputAction @LookGamepad => m_Wrapper.m_Player_LookGamepad;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputAction @Pause => m_Wrapper.m_Player_Pause;
-            public InputAction @Jump => m_Wrapper.m_Player_Jump;
-            public InputAction @SwitchWeapon => m_Wrapper.m_Player_SwitchWeapon;
-            public InputAction @CycleWeapon => m_Wrapper.m_Player_CycleWeapon;
+            public InputAction @Brake => m_Wrapper.m_Player_Brake;
             public InputAction @SecondaryInput => m_Wrapper.m_Player_SecondaryInput;
             public InputAction @Scoreboard => m_Wrapper.m_Player_Scoreboard;
-            public InputAction @Interact => m_Wrapper.m_Player_Interact;
-            public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
-            public InputAction @Reload => m_Wrapper.m_Player_Reload;
-            public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
-            public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
-            public InputAction @Special => m_Wrapper.m_Player_Special;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1407,48 +1103,27 @@ namespace Opus
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
+                @LookMouse.started += instance.OnLookMouse;
+                @LookMouse.performed += instance.OnLookMouse;
+                @LookMouse.canceled += instance.OnLookMouse;
+                @LookGamepad.started += instance.OnLookGamepad;
+                @LookGamepad.performed += instance.OnLookGamepad;
+                @LookGamepad.canceled += instance.OnLookGamepad;
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
-                @SwitchWeapon.started += instance.OnSwitchWeapon;
-                @SwitchWeapon.performed += instance.OnSwitchWeapon;
-                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
-                @CycleWeapon.started += instance.OnCycleWeapon;
-                @CycleWeapon.performed += instance.OnCycleWeapon;
-                @CycleWeapon.canceled += instance.OnCycleWeapon;
+                @Brake.started += instance.OnBrake;
+                @Brake.performed += instance.OnBrake;
+                @Brake.canceled += instance.OnBrake;
                 @SecondaryInput.started += instance.OnSecondaryInput;
                 @SecondaryInput.performed += instance.OnSecondaryInput;
                 @SecondaryInput.canceled += instance.OnSecondaryInput;
                 @Scoreboard.started += instance.OnScoreboard;
                 @Scoreboard.performed += instance.OnScoreboard;
                 @Scoreboard.canceled += instance.OnScoreboard;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
-                @PickUp.started += instance.OnPickUp;
-                @PickUp.performed += instance.OnPickUp;
-                @PickUp.canceled += instance.OnPickUp;
-                @Reload.started += instance.OnReload;
-                @Reload.performed += instance.OnReload;
-                @Reload.canceled += instance.OnReload;
-                @Sprint.started += instance.OnSprint;
-                @Sprint.performed += instance.OnSprint;
-                @Sprint.canceled += instance.OnSprint;
-                @Crouch.started += instance.OnCrouch;
-                @Crouch.performed += instance.OnCrouch;
-                @Crouch.canceled += instance.OnCrouch;
-                @Special.started += instance.OnSpecial;
-                @Special.performed += instance.OnSpecial;
-                @Special.canceled += instance.OnSpecial;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1456,48 +1131,27 @@ namespace Opus
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-                @Look.started -= instance.OnLook;
-                @Look.performed -= instance.OnLook;
-                @Look.canceled -= instance.OnLook;
+                @LookMouse.started -= instance.OnLookMouse;
+                @LookMouse.performed -= instance.OnLookMouse;
+                @LookMouse.canceled -= instance.OnLookMouse;
+                @LookGamepad.started -= instance.OnLookGamepad;
+                @LookGamepad.performed -= instance.OnLookGamepad;
+                @LookGamepad.canceled -= instance.OnLookGamepad;
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
-                @Jump.started -= instance.OnJump;
-                @Jump.performed -= instance.OnJump;
-                @Jump.canceled -= instance.OnJump;
-                @SwitchWeapon.started -= instance.OnSwitchWeapon;
-                @SwitchWeapon.performed -= instance.OnSwitchWeapon;
-                @SwitchWeapon.canceled -= instance.OnSwitchWeapon;
-                @CycleWeapon.started -= instance.OnCycleWeapon;
-                @CycleWeapon.performed -= instance.OnCycleWeapon;
-                @CycleWeapon.canceled -= instance.OnCycleWeapon;
+                @Brake.started -= instance.OnBrake;
+                @Brake.performed -= instance.OnBrake;
+                @Brake.canceled -= instance.OnBrake;
                 @SecondaryInput.started -= instance.OnSecondaryInput;
                 @SecondaryInput.performed -= instance.OnSecondaryInput;
                 @SecondaryInput.canceled -= instance.OnSecondaryInput;
                 @Scoreboard.started -= instance.OnScoreboard;
                 @Scoreboard.performed -= instance.OnScoreboard;
                 @Scoreboard.canceled -= instance.OnScoreboard;
-                @Interact.started -= instance.OnInteract;
-                @Interact.performed -= instance.OnInteract;
-                @Interact.canceled -= instance.OnInteract;
-                @PickUp.started -= instance.OnPickUp;
-                @PickUp.performed -= instance.OnPickUp;
-                @PickUp.canceled -= instance.OnPickUp;
-                @Reload.started -= instance.OnReload;
-                @Reload.performed -= instance.OnReload;
-                @Reload.canceled -= instance.OnReload;
-                @Sprint.started -= instance.OnSprint;
-                @Sprint.performed -= instance.OnSprint;
-                @Sprint.canceled -= instance.OnSprint;
-                @Crouch.started -= instance.OnCrouch;
-                @Crouch.performed -= instance.OnCrouch;
-                @Crouch.canceled -= instance.OnCrouch;
-                @Special.started -= instance.OnSpecial;
-                @Special.performed -= instance.OnSpecial;
-                @Special.canceled -= instance.OnSpecial;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1681,20 +1335,13 @@ namespace Opus
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
+            void OnLookMouse(InputAction.CallbackContext context);
+            void OnLookGamepad(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
-            void OnJump(InputAction.CallbackContext context);
-            void OnSwitchWeapon(InputAction.CallbackContext context);
-            void OnCycleWeapon(InputAction.CallbackContext context);
+            void OnBrake(InputAction.CallbackContext context);
             void OnSecondaryInput(InputAction.CallbackContext context);
             void OnScoreboard(InputAction.CallbackContext context);
-            void OnInteract(InputAction.CallbackContext context);
-            void OnPickUp(InputAction.CallbackContext context);
-            void OnReload(InputAction.CallbackContext context);
-            void OnSprint(InputAction.CallbackContext context);
-            void OnCrouch(InputAction.CallbackContext context);
-            void OnSpecial(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

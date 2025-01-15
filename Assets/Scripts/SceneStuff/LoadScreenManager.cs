@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Opus
+namespace ToyTanks
 {
     public class LoadScreenManager : MonoBehaviour
     {

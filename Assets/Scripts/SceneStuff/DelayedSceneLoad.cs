@@ -1,7 +1,7 @@
 using Eflatun.SceneReference;
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class DelayedSceneLoad : MonoBehaviour
     {

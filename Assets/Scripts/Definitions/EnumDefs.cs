@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     /// <summary>
     /// <b>HITBOXES</b><br></br>

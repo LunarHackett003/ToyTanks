@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class PlayerSettings : MonoBehaviour
     {

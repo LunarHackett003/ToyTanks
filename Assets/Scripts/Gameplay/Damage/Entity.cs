@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class Entity : NetworkBehaviour
     {

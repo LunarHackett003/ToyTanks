@@ -1,20 +1,19 @@
-using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-namespace Opus
+namespace ToyTanks
 {
     public class PlayerEntity : HealthyEntity
     {
-        public PlayerManager playerManager;
         public NetworkTransform netTransform;
-        public CinemachineCamera viewCineCam, worldCineCam;
-        public Camera viewmodelCamera;
 
         public Outline outlineComponent;
         public CharacterRenderable cr;
+
+        public delegate void OnHealthChanged(PlayerEntity entity);
+        public OnHealthChanged onHealthChanged;
+
 
         public NetworkVariable<bool> stunned = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
         public NetworkVariable<bool> burning = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -37,29 +36,30 @@ namespace Opus
         public void Teleport_RPC(Vector3 pos, Quaternion rot)
         {
             netTransform.Teleport(pos, rot, Vector3.one);
+            
         }
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            PlayerManager.playersByID.TryGetValue(OwnerClientId, out playerManager);
-
+            cr.InitialiseViewable(this);
+            if (IsOwner || IsServer)
+            {
+                onHealthChanged += PlayerManager.PlayerManagers[OwnerClientId].TankEntityDamaged;
+                currentHealth.OnValueChanged += HealthChanged;
+            }
+        }
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
             if (IsOwner)
             {
-
-                UniversalAdditionalCameraData uacd = Camera.main.GetUniversalAdditionalCameraData();
-
-                uacd.cameraStack.Add(viewmodelCamera);
-                uacd.renderPostProcessing = false;
+                onHealthChanged -= PlayerManager.PlayerManagers[OwnerClientId].TankEntityDamaged;
             }
-            else
-            {
-                worldCineCam.enabled = false;
-                viewCineCam.enabled = false;
-                viewmodelCamera.enabled = false;
-            }
-
-            cr.InitialiseViewable(this);
+        }
+        void HealthChanged(float previous, float current)
+        {
+            onHealthChanged?.Invoke(this);
         }
     }
 }

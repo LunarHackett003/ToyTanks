@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public static class MathHelper 
     {

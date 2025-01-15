@@ -2,7 +2,7 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class PlayerNetworkTransform : AnticipatedNetworkTransform
     {

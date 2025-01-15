@@ -1,17 +1,22 @@
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class MainMenu : MonoBehaviour
     {
-        public void StartClient()
+        public void HostGame()
         {
-            SessionManager.Instance.StartClient();
+            if (SessionManager.Instance)
+            {
+                SessionManager.Instance.StartHost();
+            }
         }
-        public void StartHost()
+        public void JoinGame()
         {
-            SessionManager.Instance.StartHost();
+            if (SessionManager.Instance)
+            {
+                SessionManager.Instance.StartClient();
+            }
         }
-        
     }
 }

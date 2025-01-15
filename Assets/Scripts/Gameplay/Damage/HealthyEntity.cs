@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Opus
+namespace ToyTanks
 {
     public class HealthyEntity : Entity
     {
@@ -38,56 +38,18 @@ namespace Opus
             if (scoreBehaviour != 0)
             {
                 uint value = (uint)Mathf.RoundToInt(damageIn * 10);
-                PlayerManager target;
+                //PlayerManager target;
                 switch (scoreBehaviour)
                 {
+                    case ScoreAwardingBehaviour.none:
+                        break;
                     case ScoreAwardingBehaviour.sourceCombat:
-                        if(PlayerManager.playersByID.TryGetValue(sourceClientID, out target))
-                        {
-                            target.combatPoints.Value += (uint)Mathf.RoundToInt(value);
-                            print($"Awarded {value} combat points to {target.name}//{sourceClientID}");
-                            return;
-                        }
-                        else
-                        {
-
-                        }
                         break;
                     case ScoreAwardingBehaviour.sourceSupport:
-                        if (PlayerManager.playersByID.TryGetValue(sourceClientID, out target))
-                        {
-                            target.combatPoints.Value += (uint)Mathf.RoundToInt(value);
-                            print($"Awarded {value} support points to {target.name}//{sourceClientID}");
-                            return;
-                        }
-                        else
-                        {
-
-                        }
                         break;
                     case ScoreAwardingBehaviour.ownerCombat:
-                        if (PlayerManager.playersByID.TryGetValue(OwnerClientId, out target))
-                        {
-                            target.combatPoints.Value += (uint)Mathf.RoundToInt(value);
-                            print($"Awarded {value} combat points to {target.name}//{OwnerClientId}");
-                            return;
-                        }
-                        else
-                        {
-
-                        }
                         break;
                     case ScoreAwardingBehaviour.ownerSupport:
-                        if (PlayerManager.playersByID.TryGetValue(OwnerClientId, out target))
-                        {
-                            target.supportPoints.Value += (uint)Mathf.RoundToInt(value);
-                            print($"Awarded {value} support points to {target.name}//{OwnerClientId}");
-                            return;
-                        }
-                        else
-                        {
-
-                        }
                         break;
                     default:
                         break;
@@ -102,13 +64,7 @@ namespace Opus
         public virtual void RestoreHealth(float healthIn, ulong sourceClientID)
         {
             currentHealth.Value += healthIn;
-            uint value = (uint)Mathf.RoundToInt(healthIn * 10);
-            if (PlayerManager.playersByID.TryGetValue(sourceClientID, out PlayerManager source))
-            {
-                source.supportPoints.Value += (uint)Mathf.RoundToInt(value);
-                print($"Awarded {value} support points to {source.name}//{OwnerClientId}");
-                return;
-            }
+            //uint value = (uint)Mathf.RoundToInt(healthIn * 10);
         }
     }
 }

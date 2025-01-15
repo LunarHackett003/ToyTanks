@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -459,8 +460,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1510447291}
-        m_TargetAssemblyTypeName: Opus.MainMenu, Assembly-CSharp
-        m_MethodName: StartClient
+        m_TargetAssemblyTypeName: ToyTanks.MainMenu, Assembly-CSharp
+        m_MethodName: JoinGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -948,7 +949,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1510447286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb01b6dc54b8c074aa4fe3c171fc7367, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bc36d1db3c4a9c438e82dd72515bf60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1649878909
@@ -1171,8 +1172,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1510447291}
-        m_TargetAssemblyTypeName: Opus.MainMenu, Assembly-CSharp
-        m_MethodName: StartHost
+        m_TargetAssemblyTypeName: ToyTanks.MainMenu, Assembly-CSharp
+        m_MethodName: HostGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
