@@ -12,7 +12,7 @@ namespace ToyTanks
     {
         public static Dictionary<ulong, PlayerManager> PlayerManagers = new();
 
-        public TankController myTankController;
+        public VehicleController myTankController;
         public CanvasGroup deadUI;
         public Button spawnButton;
         public NetworkVariable<int> respawnTime = new(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);

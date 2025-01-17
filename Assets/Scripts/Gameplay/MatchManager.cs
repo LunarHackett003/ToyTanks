@@ -55,6 +55,16 @@ namespace ToyTanks
 
             }
         }
+        float guislidervalue = 1;
+        private void OnGUI()
+        {
+            GUILayout.BeginVertical();
+            GUILayout.Space(100);
+            GUILayout.Label($"TImescale: {guislidervalue}");
+            guislidervalue = GUILayout.HorizontalSlider(guislidervalue, 0.01f, 1f, GUILayout.Height(50), GUILayout.Width(400));
+            Time.timeScale = guislidervalue;
+            GUILayout.EndVertical();
+        }
 
 
         private void SceneManager_OnSceneEvent(SceneEvent sceneEvent)
@@ -96,7 +106,7 @@ namespace ToyTanks
             PlayerManager pm = PlayerManager.PlayerManagers[OwnerClientId];
             if (firstSpawn)
             {
-                pm.myTankController = NetworkManager.SpawnManager.InstantiateAndSpawn(pm.tank, clientID, false, false, false).GetComponent<TankController>();
+                pm.myTankController = NetworkManager.SpawnManager.InstantiateAndSpawn(pm.tank, clientID, false, false, false).GetComponent<VehicleController>();
             }
             pm.myTankController.FindSpawnAndTeleport_RPC();
         }
